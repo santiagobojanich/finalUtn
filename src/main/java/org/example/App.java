@@ -117,11 +117,10 @@ public class App {
         }
         Alumno alumno = new Alumno(rs.getString("nombre"), rs.getInt("legajo"));
 
-        String jsonText = mapper.writeValueAsString(rs.getString("materias_aprobadas"));
-        ArrayList<String> nombreCorrelativas = mapper.readValue(jsonText, ArrayList.class);
-        alumno.setMateriasAprobadas(nombreCorrelativas);
+        alumno.setMateriasAprobadas(mapper.readValue(rs.getString("materias_aprobadas"), ArrayList.class));
 
         conexion.cerrarConexion();
+
 
         return alumno;
     }
@@ -172,7 +171,7 @@ public class App {
         }
         Materia materia = new Materia(rs.getString("nombre"));
 
-        materia.setCorrelativas(mapper.readValue(mapper.writeValueAsString(rs.getString("correlativas")), ArrayList.class));
+     materia.setCorrelativas(mapper.readValue(rs.getString("correlativas"), ArrayList.class));
 
         conexion.cerrarConexion();
 
